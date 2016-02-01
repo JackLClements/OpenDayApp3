@@ -29,14 +29,15 @@ tools:context=".MapsActivity">
         android:layout_alignParentBottom="true"
         android:layout_alignParentTop="true">
 
-        <EditText
+        <AutoCompleteTextView
             android:layout_width="137dp"
             android:layout_height="wrap_content"
             android:id="@+id/TFaddress"
             android:inputType="text"
             android:layout_gravity="left|center_vertical"
             android:layout_weight="0.90"
-            android:textColor="#1e1e06" />
+            android:textColor="#1e1e06"
+            android:editable="true" />
 
         <Button
             style="?android:attr/buttonStyleSmall"

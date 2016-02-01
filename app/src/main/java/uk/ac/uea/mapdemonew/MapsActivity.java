@@ -15,6 +15,8 @@ import android.os.Bundle;
 import android.text.Layout;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -54,24 +56,33 @@ public class MapsActivity extends FragmentActivity {
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private Address address;
     Location myLocation = null;
-    MarkerOptions[] locations = new MarkerOptions[333];
+    ArrayList<MarkerOptions> locations = new ArrayList<MarkerOptions>();
     String directionsURL = null;
     String directions = null;
+    AutoCompleteTextView location_tf;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
+        location_tf = (AutoCompleteTextView) findViewById(R.id.TFaddress);
+
+        String[] ueaLocationsList = getResources().getStringArray(R.array.ueaLocationsList);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, ueaLocationsList);
+        location_tf.setAdapter(adapter);
+
         setUpMapIfNeeded();
 
-       try {
+        try {
             ReadMap();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
+
 
     void ReadMap() throws IOException {
 
@@ -97,7 +108,8 @@ public class MapsActivity extends FragmentActivity {
 
             markerOption.position(new LatLng(lat, longt)).title(title);
 
-            mMap.addMarker(markerOption);
+            locations.add(markerOption);
+            // mMap.addMarker(markerOption);
 
         }
     }
@@ -111,11 +123,8 @@ public class MapsActivity extends FragmentActivity {
 
     public void onSearch(View view) {
 
-        EditText location_tf = (EditText) findViewById(R.id.TFaddress);
         String location = location_tf.getText().toString();
-        List<Address> addressList = null;
-        if (location != null || !location.equals("")) {
-            Geocoder geocoder = new Geocoder(this);
+
 /*
             for (int i = 0; i < locations.length; i++) {
                 if (address.getFeatureName().equalsIgnoreCase(locations[i].getTitle())) {
@@ -128,19 +137,28 @@ public class MapsActivity extends FragmentActivity {
              Log.d("YOMOMO", address.getFeatureName());
 */
 
-                try {
-                    addressList = geocoder.getFromLocationName(location, 1);
 
+        MarkerOptions searchedLoc = null;
+        for (int i = 0; i < locations.size(); i++) {
+            // Log.d("MYDEBUGGER",location_tf.getText().toString() + "  and  "  + locations.get(i).getTitle());
+            if (location_tf.getText().toString().equalsIgnoreCase(locations.get(i).getTitle())) {
 
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                address = addressList.get(0);
+                searchedLoc = locations.get(i);
             }
-            LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-            mMap.addMarker(new MarkerOptions().position(latLng).title(address.getFeatureName().toUpperCase()));
-            mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+
+        }
+
+
+        //  LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+        // mMap.addMarker(new MarkerOptions().position(latLng).title(address.getFeatureName().toUpperCase()));
+        //    mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+
+        if (searchedLoc != null) {
+            mMap.clear();
+            mMap.addMarker(searchedLoc);
+            mMap.animateCamera(CameraUpdateFactory.newLatLng(searchedLoc.getPosition()));
+
+        }
 
     }
 
@@ -179,7 +197,7 @@ public class MapsActivity extends FragmentActivity {
         LatLng latLng = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(14));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(20));
         //  mMap.addMarker(new MarkerOptions().position(new LatLng(myLocation.getLatitude(), myLocation.getLongitude())).title("You are here!"));
 
     }
@@ -209,7 +227,7 @@ public class MapsActivity extends FragmentActivity {
 
         String walk = "avoid=highways&mode=walking";
         // Building the parameters to the web service
-        String parameters = str_origin + "&" + str_dest + "&" + sensor  + "&" + walk;
+        String parameters = str_origin + "&" + str_dest + "&" + sensor + "&" + walk;
         // Output format
         String output = "json";
         // Building the url to the web service
@@ -259,6 +277,7 @@ public class MapsActivity extends FragmentActivity {
         directionsURL = data;
         return data;
     }
+
     /**
      * Receives a JSONObject and returns a list of lists containing latitude and longitude
      *

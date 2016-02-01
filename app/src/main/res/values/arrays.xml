@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="ueaLocationsList">
+
+        <item>Zuckerman Institute for Connective Environmental Research</item>
+        <item>British Centre for Literary Translation</item>
+        <item>Centre for East Anglian Studies</item>
+        <item>Climatic Research Unit</item>
+        <item>INTO University of East Anglia</item>
+        <item>James Platt Language Centre</item>
+        <item>John Innes Centre</item>
+        <item>Norwich Business School</item>
+        <item>Norwich Medical School</item>
+        <item>Norwich Research Park</item>
+        <item>Art - Media and American Studies</item>
+        <item>School of Biological Sciences</item>
+        <item>School of Chemistry</item>
+        <item>School of Computing Sciences</item>
+        <item>School of Education and Lifelong Learning</item>
+        <item>School of Environmental Sciences</item>
+        <item>History</item>
+        <item>School of International Development</item>
+        <item>Politics - Philosophy - Language and Communication Studies</item>
+        <item>Literature - Drama and Creative Writing</item>
+        <item>School of Mathematics</item>
+        <item>School of Health Sciences</item>
+        <item>School of Pharmacy</item>
+        <item>School of Psychology</item>
+        <item>School of Social Work</item>
+        <item>Law School</item>
+        <item>Graduate School</item>
+        <item>Interdisciplinary Institute for the Humanities</item>
+        <item>Lecture Theatres 1-4</item>
+        <item>UEA Library</item>
+        <item>Study Abroad</item>
+        <item>International Office</item>
+
+        <item>Accommodation Office</item>
+        <item>Accommodation Office</item>
+        <item>Britten House</item>
+        <item>Browne House</item>
+        <item>Colman House (Block G)</item>
+        <item>Colman House (Block F)</item>
+        <item>Constable Terrace</item>
+        <item>Family Accomodation</item>
+        <item>Kett House</item>
+        <item>Nelson Court</item>
+        <item>Norfolk Terrace</item>
+        <item>Orwell Close</item>
+        <item>Paston House</item>
+        <item>Suffolk Terrace</item>
+        <item>University Village</item>
+        <item>Pine - University Village</item>
+        <item>Willow - University Village</item>
+        <item>Ash - University Village</item>
+        <item>Beech - University Village</item>
+        <item>Elm - University Village</item>
+        <item>Hawthorne - University Village</item>
+        <item>Larch - University Village</item>
+        <item>Oak - University Village</item>
+        <item>Village Close (Block E) 9-12</item>
+        <item>Village Close (Block D) 13-24</item>
+        <item>Village Close (Block F) 5-6</item>
+        <item>Village Close (Block G) 2-4</item>
+        <item>Village Courtyard A</item>
+        <item>Village Courtyard B</item>
+        <item>Yew - University Village</item>
+        <item>Victory House</item>
+        <item>Wolfson Close</item>
+        <item>Crome Court</item>
+        <item>BroadView Lodge</item>
+        <item>Bio-Medical Research Centre (BMRC)</item>
+        <item>Biomass Energy Centre</item>
+        <item>Blackdale Building</item>
+        <item>Earlham Hall</item>
+        <item>Edith Cavell Building</item>
+        <item>Lawrence Stenhouse Building</item>
+        <item>Elizbeth Fry Building</item>
+        <item>Hubert Lamb Building</item>
+        <item>ITCS Building</item>
+        <item>Estates Building</item>
+        <item>Medical Building</item>
+        <item>Queens Building</item>
+        <item>Registry Building</item>
+        <item>Teaching Wall: Arts I</item>
+        <item>Teaching Wall: Arts II</item>
+        <item>Teaching Wall: Biology</item>
+        <item>Teaching Wall: Chemisty</item>
+        <item>Teaching Wall: Sciences</item>
+        <item>Thomas Paine Study Centre</item>
+        <item>ZICER Building</item>
+        <item>Music Building</item>
+        <item>Bob Champion Research and Education Building</item>
+        <item>Music Centre</item>
+        <item>Bluebell Roadadj University Entrance</item>
+        <item>Bluebell Roadopp University Entrance</item>
+        <item>Chancellors Drive Stop E</item>
+        <item>University DriveStop A</item>
+        <item>University DriveStop B</item>
+        <item>Norfolk - Norwich University HospitalColney Lane (S-bound)</item>
+        <item>Chancellors DriveAnnexeStop F</item>
+        <item>Chancellors Drive</item>
+        <item>University DriveStop C</item>
+        <item>Bluebell RoadThe Avenuesopp</item>
+        <item>Bluebell Roadadj North Park Avenue</item>
+        <item>Earlham Roadadj Earlham Park Gates</item>
+        <item>Bluebell Roadopp North Park Avenue</item>
+        <item>Earlham Roadopp Earlham Park Gates</item>
+        <item>Bio Cafe</item>
+        <item>Cafe Direct</item>
+        <item>Blend</item>
+        <item>Vista</item>
+        <item>Zest</item>
+        <item>Sportscafe</item>
+        <item>INTO Cafe</item>
+        <item>SVCA Garden Resturant</item>
+        <item>SVCA Cafe</item>
+        <item>Tonic</item>
+        <item>Cafe 57</item>
+        <item>Astro Turf Pitches</item>
+        <item>CareerCentral</item>
+        <item>Chancellors Drive Annexes</item>
+        <item>Multifaith Centre</item>
+        <item>Islamic Prayer Room</item>
+        <item>Islamic Prayer Hall</item>
+        <item>Colney Lane Pavillion</item>
+        <item>Congregation Hall</item>
+        <item>Council House</item>
+        <item>Dean of Students Office</item>
+        <item>Dev Farm</item>
+        <item>Earlham Park</item>
+        <item>International Standard Athletics Track</item>
+        <item>The Nick Rayns LCR</item>
+        <item>Norfolk and Norwich University Hospital</item>
+        <item>UEA Nursery</item>
+        <item>The Lodge (Security)</item>
+        <item>Sportspark</item>
+        <item>Student Union Pub and Bar</item>
+        <item>Tennis Courts</item>
+        <item>The Broad</item>
+        <item>The Drama Studio</item>
+        <item>The Hive</item>
+        <item>The Square</item>
+        <item>The Street</item>
+        <item>Union House</item>
+        <item>University Dental Service</item>
+        <item>Interdisciplinary Institute</item>
+        <item>Julian Study Centre</item>
+        <item>Print Services</item>
+
+        <item>Car Park P1</item>
+        <item>Car Park P10</item>
+        <item>Car Park P2</item>
+        <item>Car Park P3</item>
+        <item>Car Park P3</item>
+        <item>Car Park P4</item>
+        <item>Car Park P5</item>
+        <item>Car Park P6</item>
+        <item>Car Park P7</item>
+        <item>Car Park P8</item>
+        <item>Car Park P8</item>
+        <item>Car Park P9</item>
+        <item>Car Park P11</item>
+        <item>Car Park P12</item>
+
+        <item>Cycle Repair Centre</item>
+        <item>Arts Hub</item>
+        <item>Elizabeth Fry Hub</item>
+        <item>ZICER Hub</item>
+        <item>Postgraduate Research Service (PGR)</item>
+
+        <item>University Medical Services</item>
+
+        <item>Sainsbury Centre for Visual Arts</item>
+
+        <item>Arts Block (Total)</item>
+        <item>Arts Room 1.01</item>
+        <item>Arts Room 1.02</item>
+        <item>Arts Room 1.03</item>
+        <item>Arts Room 1.04</item>
+        <item>Arts Room 1.05</item>
+        <item>ITCS Building (Total)</item>
+        <item>ITCS Floor 0 Teaching Room</item>
+        <item>ITCS Floor 01 Teaching Room</item>
+        <item>ITCS Group Study Room (Floor 01)</item>
+        <item>Library Floor 0 (24hour Area)</item>
+        <item>Library Floor 01 (01.29)</item>
+        <item>Library Floor 01 (01.03)</item>
+        <item>Library Floor 1</item>
+        <item>Library Floor 1 (24hour Area)</item>
+        <item>Library Floor 2</item>
+        <item>Library Floor 3</item>
+        <item>Library Building (Total)</item>
+
+        <item>Draped Reclining Woman</item>
+        <item>Extrapolation</item>
+        <item>One for Bristol</item>
+        <item>Proximity</item>
+        <item>Reclining Figure</item>
+        <item>Sculpture 1964 (Variations on a Square)</item>
+        <item>Two Piece Reclining Figure No. 3</item>
+
+        <item>Blackdale new student residence</item>
+        <item>Union House Refurbishment</item>
+        <item>ITCS - Internal Alterations</item>
+        <item>Music Refurbishment</item>
+        <item>ENV - MTH Reception Works</item>
+    </string-array>
+
+</resources>
