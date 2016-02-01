@@ -10,6 +10,7 @@ import android.location.Criteria;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.text.Layout;
@@ -18,6 +19,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -48,18 +51,27 @@ import uk.ac.uea.framework.framework.sl.directions.pojos.Legs;
 import uk.ac.uea.framework.framework.sl.directions.pojos.Routes;
 import uk.ac.uea.framework.framework.sl.directions.pojos.Steps;
 import uk.ac.uea.framework.framework.sl.utils.JsonGenerator;
+import uk.ac.uea.framework.mapdemonew.DirectionsJSONParser;
 
 
-public class MapsActivity extends FragmentActivity {
+public class MapsActivity extends FragmentActivity implements View.OnClickListener {
 
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private Address address;
     Location myLocation = null;
+    LatLng dest = null;
     ArrayList<MarkerOptions> locations = new ArrayList<MarkerOptions>();
     String directionsURL = null;
     String directions = null;
     AutoCompleteTextView location_tf;
+    boolean alphaToggle = true;
+
+    ImageButton getToLoc;
+    ImageButton simpleView;
+    ImageButton advancedView;
+    ImageButton help;
+    TextView textView;
 
 
     @Override
@@ -67,7 +79,18 @@ public class MapsActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
+        textView = (TextView) findViewById(R.id.textView);
+        getToLoc = (ImageButton) findViewById(R.id.button);
+        simpleView = (ImageButton) findViewById(R.id.button2);
+        advancedView = (ImageButton) findViewById(R.id.button3);
+        help = (ImageButton) findViewById(R.id.button4);
         location_tf = (AutoCompleteTextView) findViewById(R.id.TFaddress);
+
+        getToLoc.setOnClickListener(this);
+        simpleView.setOnClickListener(this);
+        advancedView.setOnClickListener(this);
+        help.setOnClickListener(this);
+        textView.setAlpha(0);
 
         String[] ueaLocationsList = getResources().getStringArray(R.array.ueaLocationsList);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, ueaLocationsList);
@@ -81,6 +104,74 @@ public class MapsActivity extends FragmentActivity {
             e.printStackTrace();
         }
 
+    }
+    /**
+     * Called when a view has been clicked.
+     * @param v The view that was clicked.
+     */
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.button:
+                if(myLocation != null && dest != null)
+                    onGetToLocation();
+
+                break;
+            case R.id.button2:
+                if(myLocation != null && dest != null)
+                {
+                    LatLng origin = new LatLng(myLocation.getLatitude(),myLocation.getLongitude()) ;
+
+                    String url = null;
+                    try {
+                        url = getDirectionsUrl(origin, dest);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    DownloadTask downloadTask = new DownloadTask();
+                    downloadTask.execute(url);
+
+
+                }
+                break;
+            case R.id.button3:
+
+                if(myLocation != null && dest != null && directionsURL != null) {
+                    LatLng origin = new LatLng(myLocation.getLatitude(),myLocation.getLongitude()) ;
+
+                    String url = null;
+                    try {
+                        url = getDirectionsUrl(origin, dest);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+
+                    if (alphaToggle)
+                        textView.setAlpha(1);
+                    else
+                        textView.setAlpha(0);
+
+                    alphaToggle = !alphaToggle;
+
+                    try {
+                        DirectionFinder();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    textView.setText(directions);
+                    directions = null;
+                }
+
+                break;
+            case R.id.button4:
+                /*
+                if(myLocation != null && carLocation != null)
+                    textView2.setText("Distance : " + String.valueOf((int) distanceToCar) + " meters.");
+                //textView2.setText(( myLocation.getLatitude() + " " + myLocation.getLongitude() ) + "\n " + (carLocation.getLatitude() + " " + carLocation.getLongitude() ));
+               */
+                break;
+        }
     }
 
 
@@ -144,6 +235,7 @@ public class MapsActivity extends FragmentActivity {
             if (location_tf.getText().toString().equalsIgnoreCase(locations.get(i).getTitle())) {
 
                 searchedLoc = locations.get(i);
+                dest = searchedLoc.getPosition();
             }
 
         }
@@ -161,7 +253,6 @@ public class MapsActivity extends FragmentActivity {
         }
 
     }
-
 
     public void changeType(View view) {
         if (mMap.getMapType() == GoogleMap.MAP_TYPE_NORMAL) {
@@ -181,6 +272,20 @@ public class MapsActivity extends FragmentActivity {
                 setUpMap();
             }
         }
+    }
+
+    private void onGetToLocation()
+    {
+        String url = null;
+        try {
+            url = getDirectionsUrl(new LatLng(myLocation.getLatitude(),myLocation.getLongitude()), dest);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        DownloadTask downloadTask = new DownloadTask();
+        downloadTask.execute(url);
+
     }
 
     private void setUpMap() {
@@ -404,6 +509,100 @@ public class MapsActivity extends FragmentActivity {
         }
 
     }
+    private class DownloadTask extends AsyncTask<String, Void, String> {
+
+        // Downloading data in non-ui thread
+        @Override
+        protected String doInBackground(String... url) {
+
+            // For storing data from web service
+            String data = "";
+
+            try {
+                // Fetching the data from web service
+                data = downloadUrl(url[0]);
+            } catch (Exception e) {
+                Log.d("Background Task", e.toString());
+            }
+
+
+            return data;
+        }
+
+        // Executes in UI thread, after the execution of
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            ParserTask parserTask = new ParserTask();
+
+            // Invokes the thread for parsing the JSON data
+            parserTask.execute(result);
+
+        }
+    }
+
+    /**
+     * A class to parse the Google Places in JSON format
+     */
+    private class ParserTask extends AsyncTask<String, Integer, List<List<HashMap<String, String>>>> {
+
+        // Parsing the data in non-ui thread
+        @Override
+        protected List<List<HashMap<String, String>>> doInBackground(String... jsonData) {
+
+            JSONObject jObject;
+            List<List<HashMap<String, String>>> routes = null;
+
+            try {
+                jObject = new JSONObject(jsonData[0]);
+                DirectionsJSONParser parser = new DirectionsJSONParser();
+
+                // Starts parsing data
+                routes = parser.parse(jObject);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return routes;
+        }
+
+        // Executes in UI thread, after the parsing process
+        @Override
+        protected void onPostExecute(List<List<HashMap<String, String>>> result) {
+
+            ArrayList<LatLng> points = null;
+            PolylineOptions lineOptions = null;
+
+            // Traversing through all the routes
+            for (int i = 0; i < result.size(); i++) {
+                points = new ArrayList<LatLng>();
+                lineOptions = new PolylineOptions();
+                //lineOptions.color(Color.MAGENTA);
+                // Fetching i-th route
+                List<HashMap<String, String>> path = result.get(i);
+
+                // Fetching all the points in i-th route
+                for (int j = 0; j < path.size(); j++) {
+                    HashMap<String, String> point = path.get(j);
+
+                    double lat = Double.parseDouble(point.get("lat"));
+                    double lng = Double.parseDouble(point.get("lng"));
+                    LatLng position = new LatLng(lat, lng);
+
+                    points.add(position);
+                }
+
+                // Adding all the points in the route to LineOptions
+                lineOptions.addAll(points);
+                lineOptions.width(7);
+                lineOptions.color(Color.MAGENTA);
+            }
+
+            // Drawing polyline in the Google Map for the i-th route
+            mMap.addPolyline(lineOptions);
+        }
+    }
+
 
 
 }

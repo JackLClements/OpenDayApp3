@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">MapDemoNew</string>
-    <string name="title_activity_maps">Map</string>
+    <string name="app_name">Location Finder</string>
+    <string name="title_activity_maps">Location Finder</string>
     <string name="title_activity_main">MainActivity</string>
 
     <string name="title_section1">Section 1</string>

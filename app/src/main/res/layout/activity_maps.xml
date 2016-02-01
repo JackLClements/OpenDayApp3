@@ -68,6 +68,23 @@ tools:context=".MapsActivity">
         android:name="com.google.android.gms.maps.SupportMapFragment"
 
         />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/textView"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:autoText="false"
+        android:textAlignment="gravity"
+        android:background="#274066"
+        android:textColor="#ffffff"
+        android:layout_alignParentBottom="true"
+        android:textSize="20dp"
+        android:text=""
+        android:gravity="center_horizontal|top"
+        android:textIsSelectable="false"
+        android:layout_alignParentTop="true" />
 
 
 </RelativeLayout>
@@ -97,7 +114,7 @@ tools:context=".MapsActivity">
             android:id="@+id/button"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
-            android:src="@mipmap/savecar"
+            android:src="@mipmap/taketolocation"
             android:scaleType="centerCrop"
             android:adjustViewBounds="false" />
 
