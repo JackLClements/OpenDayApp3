@@ -6,7 +6,7 @@ package uk.ac.uea.framework;
  */
 import android.app.Activity;
 
-import uk.ac.uea.framework.implementation.AndroidAudio;
+import uk.ac.uea.framework.framework.implementation.AndroidAudio;
 
 public class SoundResource {
     /**Audio object, used to store activity read in by constructor */

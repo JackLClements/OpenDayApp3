@@ -1,7 +1,7 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-android:layout_height="match_parent" android:background="#0099cc"
+android:layout_height="match_parent" android:background="#1e1e06"
 tools:context=".MapsActivity">
 
 <!-- The primary full-screen view. This can be replaced with whatever view
@@ -17,7 +17,7 @@ tools:context=".MapsActivity">
     android:layout_centerHorizontal="true"
     android:layout_alignParentTop="true"
     android:id="@+id/relativeLayout3"
-    android:background="#ff4d63">
+    android:background="#f22c8d">
 
     <LinearLayout
         android:orientation="horizontal"
@@ -35,7 +35,8 @@ tools:context=".MapsActivity">
             android:id="@+id/TFaddress"
             android:inputType="text"
             android:layout_gravity="left|center_vertical"
-            android:layout_weight="0.90" />
+            android:layout_weight="0.90"
+            android:textColor="#1e1e06" />
 
         <Button
             style="?android:attr/buttonStyleSmall"
@@ -44,7 +45,9 @@ tools:context=".MapsActivity">
             android:text="Search"
             android:id="@+id/Bsearch"
             android:layout_gravity="center"
-            android:onClick="onSearch" />
+            android:onClick="onSearch"
+            android:background="#1e1e06"
+            android:textColor="#fffcff" />
 
     </LinearLayout>
 </RelativeLayout>
@@ -65,14 +68,6 @@ tools:context=".MapsActivity">
 
         />
 
-
-    <Button
-        android:id="@+id/btn_draw"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/str_btn_draw"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
 
