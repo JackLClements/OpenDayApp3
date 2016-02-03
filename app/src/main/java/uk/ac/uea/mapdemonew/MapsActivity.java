@@ -167,10 +167,6 @@ public class MapsActivity extends FragmentActivity implements View.OnClickListen
 
                 break;
             case R.id.button2:
-                onClickLocInfo(v);
-                break;
-            case R.id.button3:
-
                 if (myLocation != null && destination != null && directionsURL != null) {
                     LatLng origin = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
                     LatLng dest = new LatLng(destination.getLatitude(), destination.getLongitude());
@@ -190,6 +186,10 @@ public class MapsActivity extends FragmentActivity implements View.OnClickListen
                     onClickDescription(v);
                     directions = null;
                 }
+                break;
+            case R.id.button3:
+                onClickLocInfo(v);
+
                 break;
             case R.id.button4:
 
