@@ -2,6 +2,7 @@ package uk.ac.uea.mapdemonew;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Path;
@@ -60,10 +61,11 @@ public class MapsActivity extends FragmentActivity implements View.OnClickListen
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private Address address;
     Location myLocation = null;
-    LatLng dest = null;
+    Location destination = new Location("Destination");
     ArrayList<MarkerOptions> locations = new ArrayList<MarkerOptions>();
     String directionsURL = null;
     String directions = null;
+    String buildingInfo = null;
     AutoCompleteTextView location_tf;
     boolean alphaToggle = true;
 
@@ -71,15 +73,60 @@ public class MapsActivity extends FragmentActivity implements View.OnClickListen
     ImageButton simpleView;
     ImageButton advancedView;
     ImageButton help;
-    TextView textView;
+    //TextView textView;
+    ///////////////////////// UI METHODS /////////////////////////
 
+public void onClickHelp(View view) {
+    Intent getHelpPage = new Intent(this,HelpPage.class);
+
+    startActivity(getHelpPage);
+
+
+}
+
+
+        public MarkerOptions getMarkerWithName(String name)
+    {
+        MarkerOptions searchedLoc = null;
+        for (int i = 0; i < locations.size(); i++) {
+
+            if (name.equalsIgnoreCase(locations.get(i).getTitle())) {
+
+                searchedLoc = locations.get(i);
+
+            }
+
+        }
+        return searchedLoc;
+    }
+
+    public void onClickDescription(View view) {
+        Intent getTextPage = new Intent(this,DirectionsPage.class);
+
+        getTextPage.putExtra("Direction data", directions);
+        startActivity(getTextPage);
+
+    }
+
+    public void onClickLocInfo(View view) {
+
+        Intent getTextPage = new Intent(this,LocationInfo.class);
+
+        MarkerOptions searchedLoc = getMarkerWithName(location_tf.getText().toString());
+
+        getTextPage.putExtra("Building data", searchedLoc.getTitle());
+        startActivity(getTextPage);
+
+    }
+
+    /////////////////
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
-        textView = (TextView) findViewById(R.id.textView);
+       // textView = (TextView) findViewById(R.id.textView);
         getToLoc = (ImageButton) findViewById(R.id.button);
         simpleView = (ImageButton) findViewById(R.id.button2);
         advancedView = (ImageButton) findViewById(R.id.button3);
@@ -90,7 +137,7 @@ public class MapsActivity extends FragmentActivity implements View.OnClickListen
         simpleView.setOnClickListener(this);
         advancedView.setOnClickListener(this);
         help.setOnClickListener(this);
-        textView.setAlpha(0);
+       // textView.setAlpha(0);
 
         String[] ueaLocationsList = getResources().getStringArray(R.array.ueaLocationsList);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, ueaLocationsList);
@@ -112,32 +159,18 @@ public class MapsActivity extends FragmentActivity implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button:
-                if(myLocation != null && dest != null)
+                if(myLocation != null && destination != null)
                     onGetToLocation();
 
                 break;
             case R.id.button2:
-                if(myLocation != null && dest != null)
-                {
-                    LatLng origin = new LatLng(myLocation.getLatitude(),myLocation.getLongitude()) ;
-
-                    String url = null;
-                    try {
-                        url = getDirectionsUrl(origin, dest);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                    DownloadTask downloadTask = new DownloadTask();
-                    downloadTask.execute(url);
-
-
-                }
+                onClickLocInfo(v);
                 break;
             case R.id.button3:
 
-                if(myLocation != null && dest != null && directionsURL != null) {
+                if(myLocation != null && destination != null && directionsURL != null) {
                     LatLng origin = new LatLng(myLocation.getLatitude(),myLocation.getLongitude()) ;
+                    LatLng dest =  new LatLng(destination.getLatitude(),destination.getLongitude()) ;
 
                     String url = null;
                     try {
@@ -145,31 +178,20 @@ public class MapsActivity extends FragmentActivity implements View.OnClickListen
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-
-
-                    if (alphaToggle)
-                        textView.setAlpha(1);
-                    else
-                        textView.setAlpha(0);
-
-                    alphaToggle = !alphaToggle;
 
                     try {
                         DirectionFinder();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    textView.setText(directions);
+                    onClickDescription(v);
                     directions = null;
                 }
-
                 break;
             case R.id.button4:
-                /*
-                if(myLocation != null && carLocation != null)
-                    textView2.setText("Distance : " + String.valueOf((int) distanceToCar) + " meters.");
-                //textView2.setText(( myLocation.getLatitude() + " " + myLocation.getLongitude() ) + "\n " + (carLocation.getLatitude() + " " + carLocation.getLongitude() ));
-               */
+
+                onClickHelp(v);
+
                 break;
         }
     }
@@ -205,7 +227,6 @@ public class MapsActivity extends FragmentActivity implements View.OnClickListen
         }
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -214,36 +235,12 @@ public class MapsActivity extends FragmentActivity implements View.OnClickListen
 
     public void onSearch(View view) {
 
-        String location = location_tf.getText().toString();
+        String loc = location_tf.getText().toString();
 
-/*
-            for (int i = 0; i < locations.length; i++) {
-                if (address.getFeatureName().equalsIgnoreCase(locations[i].getTitle())) {
-                    address.setFeatureName(locations[i].getTitle());
-                    address.setLatitude(locations[i].getPosition().latitude);
-                    address.setLongitude(locations[i].getPosition().longitude);
-                }
+        MarkerOptions searchedLoc = getMarkerWithName(loc);
 
-            }
-             Log.d("YOMOMO", address.getFeatureName());
-*/
-
-
-        MarkerOptions searchedLoc = null;
-        for (int i = 0; i < locations.size(); i++) {
-            // Log.d("MYDEBUGGER",location_tf.getText().toString() + "  and  "  + locations.get(i).getTitle());
-            if (location_tf.getText().toString().equalsIgnoreCase(locations.get(i).getTitle())) {
-
-                searchedLoc = locations.get(i);
-                dest = searchedLoc.getPosition();
-            }
-
-        }
-
-
-        //  LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-        // mMap.addMarker(new MarkerOptions().position(latLng).title(address.getFeatureName().toUpperCase()));
-        //    mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+        destination.setLatitude(searchedLoc.getPosition().latitude);
+        destination.setLongitude(searchedLoc.getPosition().longitude);
 
         if (searchedLoc != null) {
             mMap.clear();
@@ -278,7 +275,7 @@ public class MapsActivity extends FragmentActivity implements View.OnClickListen
     {
         String url = null;
         try {
-            url = getDirectionsUrl(new LatLng(myLocation.getLatitude(),myLocation.getLongitude()), dest);
+            url = getDirectionsUrl(new LatLng(myLocation.getLatitude(),myLocation.getLongitude()),new LatLng(destination.getLatitude(),destination.getLongitude()));
         } catch (IOException e) {
             e.printStackTrace();
         }

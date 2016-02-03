@@ -14,4 +14,9 @@
 
     <string name="action_settings">Settings</string>
     <string name="str_btn_draw">Draw Route</string>
+    <string name="title_activity_help_page">HelpPage</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_location_info">LocationInfo</string>
+    <string name="title_activity_directions_page">DirectionsPage</string>
 </resources>

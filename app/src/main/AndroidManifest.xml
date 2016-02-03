@@ -34,7 +34,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity
+            android:name=".HelpPage"
+            android:label="@string/title_activity_help_page" >
+        </activity>
+        <activity
+            android:name=".LocationInfo"
+            android:label="@string/title_activity_location_info" >
+        </activity>
+        <activity
+            android:name=".DirectionsPage"
+            android:label="@string/title_activity_directions_page" >
+        </activity>
     </application>
 
 </manifest>
