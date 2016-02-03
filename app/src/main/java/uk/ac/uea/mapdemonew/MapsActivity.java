@@ -59,34 +59,35 @@ public class MapsActivity extends FragmentActivity implements View.OnClickListen
 
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
-    private Address address;
     Location myLocation = null;
     Location destination = new Location("Destination");
     ArrayList<MarkerOptions> locations = new ArrayList<MarkerOptions>();
     String directionsURL = null;
     String directions = null;
-    String buildingInfo = null;
     AutoCompleteTextView location_tf;
-    boolean alphaToggle = true;
+
 
     ImageButton getToLoc;
     ImageButton simpleView;
     ImageButton advancedView;
     ImageButton help;
-    //TextView textView;
+
     ///////////////////////// UI METHODS /////////////////////////
 
-public void onClickHelp(View view) {
-    Intent getHelpPage = new Intent(this,HelpPage.class);
+    public void onClickHelp(View view) {
+        Intent getHelpPage = new Intent(this, HelpPage.class);
 
-    startActivity(getHelpPage);
-
-
-}
+        startActivity(getHelpPage);
 
 
-        public MarkerOptions getMarkerWithName(String name)
-    {
+    }
+
+    /**
+     * Method that returns a marker when given a string title.
+     * @param name
+     * @return
+     */
+    public MarkerOptions getMarkerWithName(String name) {
         MarkerOptions searchedLoc = null;
         for (int i = 0; i < locations.size(); i++) {
 
@@ -101,7 +102,7 @@ public void onClickHelp(View view) {
     }
 
     public void onClickDescription(View view) {
-        Intent getTextPage = new Intent(this,DirectionsPage.class);
+        Intent getTextPage = new Intent(this, DirectionsPage.class);
 
         getTextPage.putExtra("Direction data", directions);
         startActivity(getTextPage);
@@ -110,7 +111,7 @@ public void onClickHelp(View view) {
 
     public void onClickLocInfo(View view) {
 
-        Intent getTextPage = new Intent(this,LocationInfo.class);
+        Intent getTextPage = new Intent(this, LocationInfo.class);
 
         MarkerOptions searchedLoc = getMarkerWithName(location_tf.getText().toString());
 
@@ -126,7 +127,7 @@ public void onClickHelp(View view) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
-       // textView = (TextView) findViewById(R.id.textView);
+        // textView = (TextView) findViewById(R.id.textView);
         getToLoc = (ImageButton) findViewById(R.id.button);
         simpleView = (ImageButton) findViewById(R.id.button2);
         advancedView = (ImageButton) findViewById(R.id.button3);
@@ -137,7 +138,7 @@ public void onClickHelp(View view) {
         simpleView.setOnClickListener(this);
         advancedView.setOnClickListener(this);
         help.setOnClickListener(this);
-       // textView.setAlpha(0);
+        // textView.setAlpha(0);
 
         String[] ueaLocationsList = getResources().getStringArray(R.array.ueaLocationsList);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, ueaLocationsList);
@@ -152,14 +153,16 @@ public void onClickHelp(View view) {
         }
 
     }
+
     /**
      * Called when a view has been clicked.
+     *
      * @param v The view that was clicked.
      */
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button:
-                if(myLocation != null && destination != null)
+                if (myLocation != null && destination != null)
                     onGetToLocation();
 
                 break;
@@ -168,9 +171,9 @@ public void onClickHelp(View view) {
                 break;
             case R.id.button3:
 
-                if(myLocation != null && destination != null && directionsURL != null) {
-                    LatLng origin = new LatLng(myLocation.getLatitude(),myLocation.getLongitude()) ;
-                    LatLng dest =  new LatLng(destination.getLatitude(),destination.getLongitude()) ;
+                if (myLocation != null && destination != null && directionsURL != null) {
+                    LatLng origin = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
+                    LatLng dest = new LatLng(destination.getLatitude(), destination.getLongitude());
 
                     String url = null;
                     try {
@@ -195,7 +198,6 @@ public void onClickHelp(View view) {
                 break;
         }
     }
-
 
     void ReadMap() throws IOException {
 
@@ -271,11 +273,10 @@ public void onClickHelp(View view) {
         }
     }
 
-    private void onGetToLocation()
-    {
+    private void onGetToLocation() {
         String url = null;
         try {
-            url = getDirectionsUrl(new LatLng(myLocation.getLatitude(),myLocation.getLongitude()),new LatLng(destination.getLatitude(),destination.getLongitude()));
+            url = getDirectionsUrl(new LatLng(myLocation.getLatitude(), myLocation.getLongitude()), new LatLng(destination.getLatitude(), destination.getLongitude()));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -506,6 +507,7 @@ public void onClickHelp(View view) {
         }
 
     }
+
     private class DownloadTask extends AsyncTask<String, Void, String> {
 
         // Downloading data in non-ui thread
@@ -599,7 +601,6 @@ public void onClickHelp(View view) {
             mMap.addPolyline(lineOptions);
         }
     }
-
 
 
 }

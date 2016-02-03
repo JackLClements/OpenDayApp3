@@ -19,4 +19,22 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_location_info">LocationInfo</string>
     <string name="title_activity_directions_page">DirectionsPage</string>
+
+    <string name="app_about">Welcome to the UEA Room Finder! This page will give you a quick rundown
+        on how to use this app to find a specific room at UEA. Simply follow the steps below:
+    </string>
+    <string name="tagging"><u>SEARCHING FOR A ROOM</u></string>
+    <string name="tagging_info">To tell the app which room you'd like directions to, begin typing
+        the name of the room (for example, James Platt Language Centre) and a suggestion will pop
+        up. Tap the correct suggestion and press the "SEARCH" button. This will save the selected
+        location as your destination.</string>
+    <string name="finding"><u>MAKING YOUR WAY TO THE ROOM</u></string>
+    <string name="finding_info">To get directions to the building, tap the second button (with the
+        picture of a map). The route to the selected room will now be displayed as a line on the
+        map. If you wish to change the directions from the view of a map to a list of text
+        instructions, tap the third button.
+    </string>
+    <string name="notification_info">NOTE: If you have the app running while making your way to the room,
+        the app will give you a notification when you are near your destination!</string>
+
 </resources>

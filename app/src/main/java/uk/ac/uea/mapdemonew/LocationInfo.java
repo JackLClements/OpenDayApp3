@@ -111,7 +111,7 @@ public class LocationInfo extends AppCompatActivity implements View.OnClickListe
         MyLocation info = MyLocation.getLocationWithName(buildingData, locationInfo);
 
         textView.setText(info.getTitle() + "\n" + info.getDesc() + "\n" + info.getLoc());
-        
+
     }
     void ReadMap() throws IOException {
 
